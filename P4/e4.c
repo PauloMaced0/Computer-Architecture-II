@@ -21,7 +21,7 @@ int main(void)
         for (i = 0; i < 7; i++)
         {
             LATB = (LATB & 0x80FF) | (segment << 8);
-            delay(500);
+            delay(500);                             // 500 -> 2Hz | 100 -> 10Hz | 20 -> 50Hz | 10 -> 100Hz
             segment = segment << 1;
         }
         // Toggle display
