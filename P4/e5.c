@@ -3,7 +3,7 @@
 
 int main(void)
 {
-    TRISB = TRISB & 0x80F0; // RB8-14 7 segment display and sw0-3 as output
+    TRISB = (TRISB & 0x80FF) | 0x000F; // RB8-14 7 segment display as output and sw0-3 as input
     TRISD = TRISD & 0xFF9F; // RD5-6(ctnl_disp_l,ctnl_disp_l) as output
 
     LATD = (LATD & 0xFFDF) & ~(1 << 5);  // Same as LATDbits.LATD5 = 0
@@ -13,7 +13,6 @@ int main(void)
     int i;
     while (1)
     {
-        PORTB = PORTB & 0xFFF0; // reset sw0-3
         for (i = 0; i < sizeof(disp7Scodes)/sizeof(char); i++){
             if ((PORTB & 0x000F) == i){
                 LATB = (LATB & 0x80FF) | (disp7Scodes[i] << 8);
